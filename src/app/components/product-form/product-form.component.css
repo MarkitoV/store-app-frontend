@@ -1,0 +1,15 @@
+.product-card {
+  padding: 15px;
+}
+
+.input-width {
+  padding-top: 5px;
+  width: 100%;
+}
+
+.invisible {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}

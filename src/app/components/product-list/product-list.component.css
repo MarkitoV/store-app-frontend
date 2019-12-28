@@ -1,0 +1,50 @@
+table {
+  width: 100%;
+}
+
+.basic-container {
+  padding: 15px;
+}
+
+tr.product-detail-row {
+  height: 0;
+}
+
+tr.product-element-row:not(.product-expanded-row):hover {
+  background: rgb(245, 245, 245);
+}
+
+tr.product-element-row:not(.product-expanded-row):active {
+  background: #efefef;
+}
+
+.product-element-row td {
+  border-bottom-width: 0;
+}
+
+.product-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.product-element-diagram {
+  min-width: 80px;
+  border: 1px solid rgb(90, 90, 90);
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.product-element-imagePath {
+  width: 80px;
+}
+
+.product-element-description {
+  padding: 16px;
+}
+
+.product-element-description-attribution {
+  opacity: 0.5;
+  font-size: 13px;
+}

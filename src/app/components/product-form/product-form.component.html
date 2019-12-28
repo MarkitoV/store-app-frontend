@@ -1,0 +1,84 @@
+<section class="product-card" fxLayout fxLayoutAlign="center">
+  <mat-card fxFlex.xs="100%" fxFlex="600px">
+    <mat-card-header>
+      <mat-card-title fxLayoutAlign="center">
+        Subir un Producto
+      </mat-card-title>
+    </mat-card-header>
+    <form (submit)="uploadProduct(name, container, size, description, price, stock, provider)">
+      <mat-card-content>
+        <!-- name -->
+        <mat-form-field class="input-width">
+          <input matInput type="text" placeholder="Nombre del Producto" [formControl]="requiredFormControl" [errorStateMatcher]="matcher" required #name>
+          <mat-hint>Campo Requerido</mat-hint>
+          <mat-error *ngIf="requiredFormControl.hasError('required')">
+            El Nombre del Producto es <strong>Requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- container -->
+        <mat-form-field class="input-width">
+          <input matInput type="text" placeholder="Tipo de contenedor" [formControl]="requiredFormControl" [errorStateMatcher]="matcher" required #container>
+          <mat-hint>Campo Requerido</mat-hint>
+          <mat-error *ngIf="requiredFormControl.hasError('required')">
+            El Típo de Contenedor es <strong>Requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- size -->
+        <mat-form-field class="input-width">
+          <input matInput type="text" placeholder="Tamaño del Producto" [formControl]="requiredFormControl" [errorStateMatcher]="matcher" required #size>
+          <mat-hint>Campo Requerido</mat-hint>
+          <mat-error *ngIf="requiredFormControl.hasError('required')">
+            El Tamaño del Producto es <strong>Requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- description -->
+        <mat-form-field class="input-width">
+          <textarea matInput rows="2" placeholder="Descripción del Producto" #description></textarea>
+          <mat-hint>Campo Opcional</mat-hint>
+        </mat-form-field>
+
+        <!-- price -->
+        <mat-form-field class="input-width">
+          <input matInput type="number" placeholder="Precio del Producto" [formControl]="requiredFormControl" [errorStateMatcher]="matcher" required #price>
+          <mat-hint>Campo Requerido</mat-hint>
+          <mat-error *ngIf="requiredFormControl.hasError('required')">
+            El Precio del Producto es <strong>Requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- stock -->
+        <mat-form-field class="input-width">
+          <input matInput type="number" placeholder="Cantidad en Inventario" [formControl]="requiredFormControl" [errorStateMatcher]="matcher" required #stock>
+          <mat-hint>Campo Requerido</mat-hint>
+          <mat-error *ngIf="requiredFormControl.hasError('required')">
+            La Cantidad en Inventario es <strong>Requerida</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- provider -->
+        <mat-form-field class="input-width">
+          <input matInput type="text" placeholder="Proveedor del Producto" #provider>
+          <mat-hint>Campo Opcional</mat-hint>
+        </mat-form-field>
+
+        <!-- product image -->
+        <input type="file" class="invisible" (change)="onProductSelected($event)" #productInput>
+        <img mat-card-image [src]="productSelected || 'assets/no-image.png'" alt="No image" (click)="productInput.click()">
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" class="input-width">Guardar</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>
+
+<!-- https://stackblitz.com/angular/kopdrgjqmvry?file=src%2Fapp%2Finput-error-state-matcher-example.ts -->
+
+<!-- https://www.youtube.com/watch?v=4MEsROoq5Qw -->
+
+<!-- https://www.youtube.com/watch?v=n5kTqHmLtN8 -->
+
+<!-- https://github.com/MarkitoV/studentsLab-client/blob/master/src/app/auth/signup/signup.component.html -->
