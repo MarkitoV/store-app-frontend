@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { ProductService } from '../../services/product.service';
@@ -20,12 +21,13 @@ import { Product } from '../../interfaces/Product';
 })
 export class ProductListComponent implements OnInit {
 
-  products: Product[] = [];
-  dataSource = new MatTableDataSource<Product>();
   columnsToDisplay: string[] = ['name', 'container', 'size', 'price', 'stock', 'provider'];
   expandedElement: Product | null;
+  // products: Product[] = [];
+  products = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private productService: ProductService) { }
 
@@ -33,15 +35,18 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts()
       .subscribe(
         res => {
-          this.products = res;
-          console.log(this.products);
+          // this.products = res;
+          this.products = new MatTableDataSource(res);
+          console.log(this.products.data);
+          this.products.paginator = this.paginator;
+          this.products.sort = this.sort;
         },
         err => console.log(err)
       );
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  applyFilter(filterValue: string) {
+    this.products.filter = filterValue.trim().toLowerCase();
   }
 
 }

@@ -29,6 +29,7 @@ export class ProductService {
 
   getProducts() {
 
-    return this.http.get<Product[]>(this.URI);
+    // return this.http.get<Product[]>(this.URI);
+    return this.http.get<any>(this.URI);
   }
 }

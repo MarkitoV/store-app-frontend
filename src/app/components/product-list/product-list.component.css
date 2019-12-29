@@ -1,3 +1,12 @@
+/* for the filter */
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+/* for the table in general */
+
 table {
   width: 100%;
 }
@@ -5,6 +14,12 @@ table {
 .basic-container {
   padding: 15px;
 }
+
+th {
+  background-color: #dddddd
+}
+
+/* for product detail */
 
 tr.product-detail-row {
   height: 0;
@@ -47,4 +62,10 @@ tr.product-element-row:not(.product-expanded-row):active {
 .product-element-description-attribution {
   opacity: 0.5;
   font-size: 13px;
+}
+
+/* for sort header */
+
+th.mat-sort-header-sorted {
+  color: black;
 }
