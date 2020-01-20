@@ -14,16 +14,20 @@ import { ToolbarComponent } from './components/navigation/toolbar/toolbar.compon
 import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductListComponent, DialogDeleteProduct } from './components/product-list/product-list.component';
 
 @NgModule({
+  entryComponents: [
+    DialogDeleteProduct
+  ],
   declarations: [
     AppComponent,
     ToolbarComponent,
     SidenavComponent,
     ProductFormComponent,
     ProductPreviewComponent,
-    ProductListComponent
+    ProductListComponent,
+    DialogDeleteProduct
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,93 @@
-<p>product-preview works!</p>
+<div *ngIf="!product; else main_content">
+  <h1>Loading...</h1>
+</div>
+
+<ng-template #main_content>
+  <div class="basic-container">
+    <mat-grid-list cols="10" rowHeight="635px" class="mat-elevation-z8">
+      <!-- Image column -->
+      <mat-grid-tile colspan="4">
+        <mat-card>
+          <img mat-card-image [src]="'http://localhost:3000/' + product.imagePath" alt="No Image">
+        </mat-card>
+      </mat-grid-tile>
+      <!-- Data column -->
+      <mat-grid-tile colspan="6">
+        <mat-card class="card-width">
+          <mat-card-header>
+            <mat-card-title>Datos del Producto</mat-card-title>
+          </mat-card-header>
+          <form>
+            <mat-card-content>
+              <!-- name -->
+              <mat-form-field class="input-width">
+                <input matInput type="text" placeholder="Nombre del Producto" [value]="product.name" [formControl]="requiredFormControl"
+                  [errorStateMatcher]="matcher" required #name>
+                <mat-hint>Campo Requerido</mat-hint>
+                <mat-error *ngIf="requiredFormControl.hasError('required')">
+                  El Nombre del Producto es <strong>Requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- container -->
+              <mat-form-field class="input-width">
+                <input matInput type="text" placeholder="Tipo de contenedor" [value]="product.container" [formControl]="requiredFormControl"
+                  [errorStateMatcher]="matcher" required #container>
+                <mat-hint>Campo Requerido</mat-hint>
+                <mat-error *ngIf="requiredFormControl.hasError('required')">
+                  El Típo de Contenedor es <strong>Requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- size -->
+              <mat-form-field class="input-width">
+                <input matInput type="text" placeholder="Tamaño del Producto" [value]="product.size" [formControl]="requiredFormControl"
+                  [errorStateMatcher]="matcher" required #size>
+                <mat-hint>Campo Requerido</mat-hint>
+                <mat-error *ngIf="requiredFormControl.hasError('required')">
+                  El Tamaño del Producto es <strong>Requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- description -->
+              <mat-form-field class="input-width">
+                <textarea matInput rows="2" placeholder="Descripción del Producto" [value]="product.description" #description></textarea>
+                <mat-hint>Campo Opcional</mat-hint>
+              </mat-form-field>
+
+              <!-- price -->
+              <mat-form-field class="input-width">
+                <input matInput type="number" placeholder="Precio del Producto" [value]="product.price" [formControl]="requiredFormControl"
+                  [errorStateMatcher]="matcher" required #price>
+                <mat-hint>Campo Requerido</mat-hint>
+                <mat-error *ngIf="requiredFormControl.hasError('required')">
+                  El Precio del Producto es <strong>Requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- stock -->
+              <mat-form-field class="input-width">
+                <input matInput type="number" placeholder="Cantidad en Inventario" [value]="product.stock" [formControl]="requiredFormControl"
+                  [errorStateMatcher]="matcher" required #stock>
+                <mat-hint>Campo Requerido</mat-hint>
+                <mat-error *ngIf="requiredFormControl.hasError('required')">
+                  La Cantidad en Inventario es <strong>Requerida</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- provider -->
+              <mat-form-field class="input-width">
+                <input matInput type="text" placeholder="Proveedor del Producto" [value]="product.provider" #provider>
+                <mat-hint>Campo Opcional</mat-hint>
+              </mat-form-field>
+            </mat-card-content>
+            <button mat-raised-button color="primary" class="input-width">Actualizar</button>
+          </form>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</ng-template>
+
+<!-- https://www.youtube.com/watch?v=4MEsROoq5Qw -->
+<!-- 1:14:26 -->

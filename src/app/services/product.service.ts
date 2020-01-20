@@ -13,7 +13,6 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   createProduct(name: string, container: string, size: string, description: string, price: string, stock: string, provider: string, image: File) {
-
     const fd = new FormData();
     fd.append('name', name);
     fd.append('container', container);
@@ -28,8 +27,15 @@ export class ProductService {
   }
 
   getProducts() {
-
     // return this.http.get<Product[]>(this.URI);
     return this.http.get<any>(this.URI);
+  }
+
+  getProduct(id: string) {
+    return this.http.get<Product>(`${this.URI}/${id}`);
+  }
+
+  deleteProduct(id: string) {
+    return this.http.delete(`${this.URI}/${id}`);
   }
 }

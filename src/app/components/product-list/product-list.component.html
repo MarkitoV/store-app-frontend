@@ -2,7 +2,10 @@
   <h1>Listado de Productos</h1>
   <!-- this is the filter -->
   <mat-form-field>
-    <input matInput matTooltip="Ingrese un Valor Para Buscar" (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+    <input matInput matTooltip="Ingrese un Valor Para Buscar" (keyup)="applyFilter($event.target.value)" placeholder="Filtro" [(ngModel)]="value">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''; applyFilter(value)" matTooltip="Limpiar">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
   <!-- here begins the table -->
   <span class="product-element-description-attribution">Click en un elemento para más detalles.</span >
@@ -54,7 +57,15 @@
               </mat-card>
             </div>
           </div>
-          <div class="product-element-description"> {{ element.description }} </div>
+          <div class="product-element-description">
+            {{ element.description }}
+          </div>
+          <div>
+            <button mat-raised-button color="primary" class="element-button" (click)="showProduct(element._id)" matTooltip="Presione para editar">Editar</button>
+          </div>
+          <div>
+            <button mat-raised-button color="warn" class="element-button" matTooltip="Presione para eliminar" (click)="openDialog(element._id)">Eliminar</button>
+          </div>
         </div>
       </td>
     </ng-container>
@@ -69,14 +80,10 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="mat-elevation-z8"></mat-paginator>
 </div>
 
-<!-- https://material.angular.io/components/table/examples -->
+<!-- https://material.angular.io/components/dialog/overview -->
 
-<!-- https://stackblitz.com/angular/ggkbnnjnepn?file=src%2Fapp%2Ftable-expandable-rows-example.html -->
+<!-- https://stackblitz.com/angular/rknvmmmgbba?file=src%2Fapp%2Fdialog-overview-example.ts -->
 
 <!-- https://www.youtube.com/watch?v=4MEsROoq5Qw -->
-<!-- 55:11 -->
 
-<!-- https://www.youtube.com/watch?v=n5kTqHmLtN8 -->
-<!-- 14:53 -->
-
-<!-- https://github.com/MarkitoV/studentsLab-client/blob/master/src/app/laboratory/past-laboratories/past-laboratories.component.html -->
+<!-- 1:17:22 -->

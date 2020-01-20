@@ -1,18 +1,24 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, Inject} from '@angular/core';
+import { Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../interfaces/Product';
 
+export interface DialogData {
+  id: string;
+}
+
 // Custom options to configure the tooltips's default show/hide delays.
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
-  hideDelay: 1000,
-  touchendHideDelay: 1000
+  hideDelay: 500,
+  touchendHideDelay: 500
 }
 
 @Component({
@@ -36,11 +42,12 @@ export class ProductListComponent implements OnInit {
   expandedElement: Product | null;
   // products: Product[] = [];
   products = new MatTableDataSource();
+  id: string;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.productService.getProducts()
@@ -60,6 +67,46 @@ export class ProductListComponent implements OnInit {
     this.products.filter = filterValue.trim().toLowerCase();
   }
 
+  showProduct(id: string) {
+    this.router.navigate(['/products', id]);
+  }
+
+  deleteProduct(id: string) {
+    this.productService.deleteProduct(id)
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => console.log(err)
+      );
+  }
+
+  openDialog(id: string): void {
+    const dialogRef = this.dialog.open(DialogDeleteProduct, {
+      width: '275px',
+      data: {id: id}
+    });
+
+    dialogRef.afterClosed().subscribe(id => {
+      this.id = id;
+      console.log('The dialog was closed');
+      if (id) {
+        this.deleteProduct(id);
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'dialog-delete-product',
+  templateUrl: 'dialog-delete-product.html'
+})
+export class DialogDeleteProduct {
+  constructor(public dialogRef: MatDialogRef<DialogDeleteProduct>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
 
 // https://material.angular.io/components/table/overview
